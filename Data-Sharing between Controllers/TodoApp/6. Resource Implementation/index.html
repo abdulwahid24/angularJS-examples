@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en" data-framework="angularjs">
+	<head>
+		<meta charset="utf-8">
+		<title>AngularJS • TodoMVC</title>
+		<link rel="stylesheet" href="../common/base.css">
+	</head>
+	<body ng-app="todomvc">
+		<section class="todoapp" ng-controller="TodoCtrl">
+			<header class="header">
+				<h1>todos</h1>
+				<form id="todo-form" ng-submit="addTodo()">
+					<input id="new-todo" placeholder="What needs to be done?" ng-model="newTodo" ng-disabled="saving" autofocus>
+				</form>
+			</header>
+			<section id="main" ng-show="todos.length">
+				<ul id="todo-list">
+					<li ng-repeat="todo in todos" ng-class="{completed: todo.completed}" ng-if="todo.completed == false">
+						<div class="view">
+							<input class="toggle" type="checkbox" ng-model="todo.completed" ng-change="toggleCompleted(todo)">
+							<label>{{todo.title}}</label>
+							<button class="destroy" ng-click="removeTodo($index)"></button>
+						</div>
+					</li>
+				</ul>
+			</section>
+		</section>
+
+		<section class="todoapp" style="margin-left: 50%; position: fixed" ng-controller="DoneTodoCtrl">
+			<header class="header">
+				<h1 style="text-decoration: line-through;">todos</h1>
+				<form id="todo-form">
+					<input id="new-todo" placeholder="Tasks done are ..." readonly="true">
+				</form>
+			</header>
+			<section id="main" ng-show="todos.length">
+				<ul id="todo-list">
+					<li ng-repeat="todo in todos" ng-class="{completed: todo.completed}" ng-if="todo.completed == true">
+						<div class="view">
+							<input class="toggle" type="checkbox" ng-model="todo.completed" ng-change="toggleCompleted(todo)">
+							<label>{{todo.title}}</label>
+							<button class="destroy" ng-click="removeTodo(todo)"></button>
+						</div>
+					</li>
+				</ul>
+			</section>
+		</section>
+			
+		<script src="../common/angular/angular.js"></script>
+		<script src="../common/angular-resource/angular-resource.min.js"></script>
+		<script src="app.js"></script>
+		<script src="controllers/todoCtrl.js"></script>
+		<script src="services/todoStorage.js"></script>
+		<script src="directives/todoFocus.js"></script>
+		<script src="directives/todoEscape.js"></script>
+	</body>
+</html>
